@@ -1,18 +1,34 @@
 <template>
-    <span class="clearAllBtn" v-on:click="clearTodo">Clear All</span>
+    <div class="clearAllContainer">
+        <span 
+          class="clearAllBtn"
+          v-on:click="clearAll">Clear All</span>
+    </div>
 </template>
 
 <script>
 export default {
-    methods:{
-        clearTodo(){
-            //localStorage.clear();
-            this.$emit('removeAll');
-        }
+  methods:{
+    clearAll: function(){
+      console.log("clear");
+      this.$emit('deleteAll:item')
     }
+  }
 
 }
 </script>
 
-<style>
+<style scoped>
+  .clearAllContainer {
+    width: 8.5rem;
+    height: 50px;
+    line-height: 50px;
+    background-color: white;
+    border-radius: 5px;
+    margin: 0 auto;
+  }
+  .clearAllBtn {
+    color: #e20303;
+    display: block;
+  }
 </style>

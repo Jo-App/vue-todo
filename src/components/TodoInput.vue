@@ -1,33 +1,63 @@
 <template>
-    <div>
-        <input type="text" v-model="newTodoItem">
-        <button v-on:click="addTodo">추가</button>
-    </div>
+  <div class="inputBox shadow">
+    <input type="text" v-model="inputText" v-on:keyup.enter="enterText">
+    
+    <span v-on:click="addItem" class="addContainer">
+      <i class="fas fa-plus"></i>
+    </span>
+  </div>
 </template>
 
 <script>
 export default {
-    data(){
-        return {
-            newTodoItem : ''
-        }
+  data: function() {
+    return {
+      inputText: ""
+    };
+  },
+  methods: {
+    addItem: function() {
+      if (this.inputText !== "") {
+        console.log("clicked");
+        var value = this.inputText;
+        //localStorage.setItem(value, value);
+        this.$emit('add:item', value);
+        this.clearInput();
+      }
     },
-    methods: {
-        addTodo(){
-            //console.log(this.newTodoItem);
-            //localStorage.setItem(this.newTodoItem, this.newTodoItem);
-            if(this.newTodoItem !== ""){
-                var value = this.newTodoItem && this.newTodoItem.trim();
-                this.$emit('addTodo2', value);
-                this.clearInput();
-            }
-        },
-        clearInput() {
-            this.newTodoItem = ''; 
-        }
+    clearInput: function() {
+      this.inputText = "";
+    },
+    enterText: function() {
+      this.addItem();
     }
-}
+  }
+};
 </script>
 
-<style>
+<style scoped>
+input:focus {
+  outline: none;
+}
+.inputBox {
+  background: white;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 5px;
+}
+.inputBox input {
+  border-style: none;
+  font-size: 0.9rem;
+}
+.addContainer {
+  float: right;
+  background: linear-gradient(to right, #6478fb, #8763fb);
+  display: inline-block;
+  width: 3rem;
+  border-radius: 0 5px 5px 0;
+}
+.addBtn {
+  color: white;
+  vertical-align: middle;
+}
 </style>
