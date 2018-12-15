@@ -3,7 +3,7 @@
      <!-- {{items}} -->
     <!-- <p id="p1">Hello Vue.js</p> -->
     <ul>
-      <li class="shadow" v-for="(item, index) in propsdata">
+      <li class="shadow" v-for="(item, index) in todoList">
         {{ item }}
         <span class="removeBtn" v-on:click="removeItem(item, index)">
           <i class="far fa-trash-alt"></i>
@@ -14,17 +14,22 @@
 </template>
 
 <script>
-export default {
-  //프롭스 데이터 받기
-  props: ['propsdata'],
+import { mapGetters } from 'vuex';
 
+export default {
+  computed : {
+    // ...mapGetters({
+    //   todoList : todoList,
+    // }),
+    ...mapGetters(['todoList'])
+  },
   methods : {
     removeItem: function(item, index){
-      this.$emit('delete:item', item, index);
+      //this.$emit('delete:item', item, index);
+      //var obj = { item, index };
+      this.$store.commit('removeTodoItem', { item, index });
     },
   },
-  
-
 
 
   beforeMount: function() {

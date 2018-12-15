@@ -9,9 +9,9 @@
 <script>
 export default {
   methods:{
-    clearAll: function(){
-      console.log("clear");
-      this.$emit('deleteAll:item')
+    clearAll(){
+      //this.$emit('deleteAll:item')
+      this.$store.commit('clearAll');
     }
   }
 

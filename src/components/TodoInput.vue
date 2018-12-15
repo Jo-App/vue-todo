@@ -16,22 +16,22 @@ export default {
     };
   },
   methods: {
-    addItem: function() {
+    addItem() {
       if (this.inputText !== "") {
-        console.log("clicked");
         var value = this.inputText;
         //localStorage.setItem(value, value);
-        this.$emit('add:item', value);
+        //this.$emit('add:item', value);
+        this.$store.commit('addTodoItems', value);
         this.clearInput();
       }
     },
-    clearInput: function() {
+    clearInput() {
       this.inputText = "";
     },
-    enterText: function() {
+    enterText() {
       this.addItem();
     }
-  }
+  },
 };
 </script>
 
@@ -50,14 +50,17 @@ input:focus {
   font-size: 0.9rem;
 }
 .addContainer {
-  float: right;
   background: linear-gradient(to right, #6478fb, #8763fb);
   display: inline-block;
   width: 3rem;
   border-radius: 0 5px 5px 0;
+  float:right;
 }
 .addBtn {
   color: white;
   vertical-align: middle;
+}
+.closeModalBtn{
+    color : #42b983;
 }
 </style>
