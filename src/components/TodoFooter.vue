@@ -1,9 +1,7 @@
 <template>
-    <div class="clearAllContainer">
-        <span 
-          class="clearAllBtn"
-          v-on:click="clearAll">Clear All</span>
-    </div>
+  <div class="clearAllContainer">
+    <span class="clearAllBtn" @click="clearAll()">Clear All</span>
+  </div>
 </template>
 
 <script>

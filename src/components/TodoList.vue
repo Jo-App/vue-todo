@@ -1,11 +1,9 @@
 <template>
   <div>
-     <!-- {{items}} -->
-    <!-- <p id="p1">Hello Vue.js</p> -->
     <ul>
-      <li class="shadow" v-for="(item, index) in todoList">
+      <li class="shadow" v-for="(item, index) in todoList" :key="index">
         {{ item }}
-        <span class="removeBtn" v-on:click="removeItem(item, index)">
+        <span class="removeBtn" @click="removeItem(item, index)">
           <i class="far fa-trash-alt"></i>
         </span>
       </li>
@@ -30,7 +28,6 @@ export default {
       this.$store.commit('removeTodoItem', { item, index });
     },
   },
-
 
   beforeMount: function() {
     console.log("befor Mount");

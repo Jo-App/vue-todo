@@ -24,7 +24,7 @@ export default new Vuex.Store({
   },
   getters: {
     todoList(state) {
-        return state.items;
+      return state.items;
     }
   },
   mutations: {
