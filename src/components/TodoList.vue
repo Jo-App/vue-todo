@@ -1,27 +1,50 @@
 <template>
   <div>
-    <ul>
-      <li class="shadow" v-for="(item, index) in todoList" :key="index">
-        {{ item }}
-        <span class="removeBtn" @click="removeItem(item, index)">
-          <i class="far fa-trash-alt"></i>
-        </span>
-      </li>
-    </ul>
+    {{todoList}}
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">Title</th>
+              <th class="text-left">Content</th>
+              <th class="text-left"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in todoList" :key="item.id"
+              @click="checkTodoItem(item.id)"
+            >
+              <td :class="{ active: item.status }">{{ item.title }}</td>
+              <td :class="{ active: item.status }">{{ item.content }}</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from "vuex";
+import _ from "lodash";
 
 export default {
-  computed : {
-    // ...mapGetters({
-    //   todoList : todoList,
-    // }),
-    ...mapGetters(['todoList'])
-  },
+  computed: _.extend(
+    mapState(["todoList"])
+  ),
+  data: () => ({
+    headers: [
+      { text: '제목', value: 'title' },
+      { text: '내용', value: 'content' },
+      { text: '', value: 'actions', sortable: false },
+    ],
+    selected: [],
+    isActive: true
+  }),
   methods : {
+    checkTodoItem(id) {
+      this.$store.commit("checkTodoItem", { id });
+    },
     removeItem: function(item, index){
       //this.$emit('delete:item', item, index);
       //var obj = { item, index };
@@ -79,5 +102,9 @@ li {
 .list-leave-to {
   opacity: 0;
   transform: translateY(30px);
+}
+
+.active {
+  text-decoration:line-through;
 }
 </style>

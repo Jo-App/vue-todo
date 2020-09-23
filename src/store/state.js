@@ -1,19 +1,24 @@
-
-const storage = {
-  fetchData() {
-    var arr = [];
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i) !== "loglevel:webpack-dev-server") {
-          let item = localStorage.key(i);
-          arr.push(item);
-        }
-      }
-    }
-    return arr;
-  }
+const menuState = {
+  todoList: [
+    {
+      id:1,
+      title: "메뉴 설정",
+      content: "내용",
+      status: false
+    },
+    {
+      id:2,
+      title: "메뉴 설정22",
+      content: "내용",
+      status: false
+    },
+    {
+      id:3,
+      title: "메뉴 설정33",
+      content: "내용33",
+      status: false
+    },
+  ]
 }
-
-export default {
-  items: storage.fetchData() || []
-}
+  
+export default menuState;

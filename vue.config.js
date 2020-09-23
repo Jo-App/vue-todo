@@ -6,5 +6,6 @@ module.exports = {
       noInfo: true,
       overlay: true,
   },
+  transpileDependencies:['vuetify'],
   lintOnSave : false
 }

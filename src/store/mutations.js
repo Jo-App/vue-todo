@@ -14,5 +14,12 @@ export default {
   clearAll(state) {
     localStorage.clear();
     state.items = [];
+  },
+  checkTodoItem(state, payload) {
+    state.todoList.map(data => {
+      if(data.id == payload.id){
+        data.status = !data.status;
+      }
+    })
   }
 }
