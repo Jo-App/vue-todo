@@ -1,19 +1,22 @@
 export default {
-  addTodoItems(state, value) {
-    //데이터 저장소에 저장
-    localStorage.setItem(value, value);
-    //할일 목록에 데이터 추가
-    state.items.push(value);
+  addTodoItems(state, payload) {
+    let inputTitle = payload.inputTitle;
+    let inputContent = payload.inputContent;
+
+    let obj = new Object();
+    obj.id = state.todoList[state.todoList.length-1] == undefined ? 0 : state.todoList[state.todoList.length-1].id + 1;
+    obj.title = inputTitle;
+    obj.content = inputContent;
+    obj.status = false;
+
+    state.todoList.push(obj);
   },
-  removeTodoItem(state, {item, index}) {
-    //데이터 저장소에서 삭제
-    localStorage.removeItem(item);
-    //할 일 목록에서 삭제
-    state.items.splice(index, 1);
-  },
-  clearAll(state) {
-    localStorage.clear();
-    state.items = [];
+  removeTodoItem(state, payload) {
+    state.todoList.map((data, index) => {
+      if(data.id == payload.id){
+        state.todoList.splice(index, 1);
+      }
+    })
   },
   checkTodoItem(state, payload) {
     state.todoList.map(data => {

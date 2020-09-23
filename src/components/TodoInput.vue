@@ -1,35 +1,44 @@
 <template>
-  <div class="inputBox shadow">
-    <input type="text" v-model="inputText" @keyup.enter="enterText()"> 
-    <span @click="addItem()" class="addContainer">
-      <i class="fas fa-plus"></i>
-    </span>
-  </div>
+  <v-row align="center">
+    <v-spacer></v-spacer>
+    <v-col cols="2" sm="2" md="2">
+      <v-text-field
+        outlined
+        v-model="inputTitle"
+        label="제목"
+      ></v-text-field>
+    </v-col>
+    <v-col cols="2" sm="2" md="2">
+      <v-text-field
+        outlined
+        v-model="inputContent"
+        label="내용"
+        append-outer-icon="mdi-plus"
+        @click:append-outer="addItem()"
+        @keyup.enter="addItem()"
+      ></v-text-field>
+    </v-col>
+    <v-spacer></v-spacer>
+  </v-row>
 </template>
 
 <script>
 export default {
-  data: function() {
-    return {
-      inputText: ""
-    };
-  },
+  data: () => ({
+    inputTitle: "",
+    inputContent: "",
+  }),
   methods: {
     addItem() {
-      if (this.inputText !== "") {
-        var value = this.inputText;
-        //localStorage.setItem(value, value);
-        //this.$emit('add:item', value);
-        this.$store.commit('addTodoItems', value);
+      if (this.inputTitle !== "" && this.inputContent !== "") {
+        this.$store.commit('addTodoItems', { inputTitle: this.inputTitle, inputContent: this.inputContent });
         this.clearInput();
       }
     },
     clearInput() {
-      this.inputText = "";
+      this.inputTitle = "";
+      this.inputContent = "";
     },
-    enterText() {
-      this.addItem();
-    }
   },
 };
 </script>
@@ -60,6 +69,6 @@ input:focus {
   vertical-align: middle;
 }
 .closeModalBtn{
-    color : #42b983;
+  color : #42b983;
 }
 </style>

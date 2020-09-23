@@ -1,6 +1,8 @@
 <template>
-  <div>
-    {{todoList}}
+  <v-row align="center">
+    <v-spacer></v-spacer>
+    <v-col cols="6" sm="6" md="6">
+    <!-- {{todoList}} -->
       <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -13,15 +15,20 @@
           <tbody>
             <tr v-for="item in todoList" :key="item.id"
               @click="checkTodoItem(item.id)"
+              :class="{ active: item.status }"
             >
-              <td :class="{ active: item.status }">{{ item.title }}</td>
-              <td :class="{ active: item.status }">{{ item.content }}</td>
-              <td></td>
+              <td>{{ item.title }}</td>
+              <td>{{ item.content }}</td>
+              <td>
+                <v-icon @click="removeItem($event, item.id)" style="color:red;">mdi-delete</v-icon>
+              </td>
             </tr>
           </tbody>
         </template>
       </v-simple-table>
-  </div>
+    </v-col>
+    <v-spacer></v-spacer>
+  </v-row>
 </template>
 
 <script>
@@ -33,37 +40,20 @@ export default {
     mapState(["todoList"])
   ),
   data: () => ({
-    headers: [
-      { text: '제목', value: 'title' },
-      { text: '내용', value: 'content' },
-      { text: '', value: 'actions', sortable: false },
-    ],
     selected: [],
     isActive: true
   }),
   methods : {
     checkTodoItem(id) {
+      console.log("ck")
       this.$store.commit("checkTodoItem", { id });
     },
-    removeItem: function(item, index){
-      //this.$emit('delete:item', item, index);
-      //var obj = { item, index };
-      this.$store.commit('removeTodoItem', { item, index });
+    removeItem(e, id) {
+      console.log("rmv")
+      e.stopPropagation(); //이벤트 전파 방지
+      this.$store.commit('removeTodoItem', { id });
     },
   },
-
-  beforeMount: function() {
-    console.log("befor Mount");
-    // var p1 = document.querySelector('#p1');
-    // console.log(p1);
-  },
-
-  //화면에 인스턴스가 붙고 난 직후
-  mounted: function() {
-    console.log("mounted");
-    // var p1 = document.querySelector('#p1');
-    // console.log(p1);
-  }
 };
 </script>
 
@@ -106,5 +96,10 @@ li {
 
 .active {
   text-decoration:line-through;
+  background-color: rgb(167, 213, 60);
+}
+
+.active2{
+  background-color: rgb(167, 213, 60);
 }
 </style>
