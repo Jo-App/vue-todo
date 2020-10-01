@@ -1,14 +1,23 @@
 <template>
-  <div>
-    Header
-  </div>
+  <v-toolbar dense>
+    <div class="box">
+      <img src="../assets/jologo1.png" class="profile">
+    </div>
+    <v-toolbar-title>Todo List</v-toolbar-title>
+    <v-spacer></v-spacer>
+  </v-toolbar>
 </template>
-
-<style scoped>
-h1 {
-  color : #2F3B52;
-  font-weight: 900;
-  margin: 2.5rem 0 1.5rem;
+<style>
+.box {
+  width: 40px;
+  height: 40px; 
+  border-radius: 70%;
+  overflow: hidden;
+  margin-right:8px;
 }
-
+.profile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 </style>
