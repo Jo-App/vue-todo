@@ -1,25 +1,28 @@
 <template>
-  <v-row align="center">
-    <v-spacer></v-spacer>
-    <v-col cols="2" sm="2" md="2">
-      <v-text-field
-        outlined
-        v-model="inputTitle"
-        label="제목"
-      ></v-text-field>
-    </v-col>
-    <v-col cols="2" sm="2" md="2">
-      <v-text-field
-        outlined
-        v-model="inputContent"
-        label="내용"
-        append-outer-icon="mdi-plus"
-        @click:append-outer="addItem()"
-        @keyup.enter="addItem()"
-      ></v-text-field>
-    </v-col>
-    <v-spacer></v-spacer>
-  </v-row>
+  <v-container class="grey lighten-5">
+    <v-row class="mb-6" no-gutters>
+      <v-spacer></v-spacer>
+      <v-col>
+        <v-card style="padding:20px;" max-width="500">
+          <v-text-field
+            outlined
+            v-model="inputTitle"
+            label="제목"
+          ></v-text-field>
+          <v-textarea
+            v-model="inputContent"
+            outlined
+            auto-grow
+            label="내용"
+            rows="4"
+            row-height="40"
+          ></v-textarea>
+          <v-btn @click="addItem()">쓰기</v-btn>
+        </v-card>
+      </v-col>
+      <v-spacer></v-spacer>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -31,7 +34,10 @@ export default {
   methods: {
     addItem() {
       if (this.inputTitle !== "" && this.inputContent !== "") {
-        this.$store.commit('addTodoItems', { inputTitle: this.inputTitle, inputContent: this.inputContent });
+        this.$store.commit("addTodoItems", {
+          inputTitle: this.inputTitle,
+          inputContent: this.inputContent,
+        });
         this.clearInput();
       }
     },
@@ -62,13 +68,13 @@ input:focus {
   display: inline-block;
   width: 3rem;
   border-radius: 0 5px 5px 0;
-  float:right;
+  float: right;
 }
 .addBtn {
   color: white;
   vertical-align: middle;
 }
-.closeModalBtn{
-  color : #42b983;
+.closeModalBtn {
+  color: #42b983;
 }
 </style>
