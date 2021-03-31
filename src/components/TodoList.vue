@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    {{todoList}}
     <v-card>
       <v-data-table
         :headers="headers"
@@ -11,7 +12,7 @@
         @click:row="checkTodoItem($event)"
       >
         <template v-slot:item.action="{ item }">
-          <v-icon @click="removeItem($event, item.id)" style="color:red;">mdi-delete</v-icon>
+          <v-icon @click="removeItem($event, item['.key'])" style="color:red;">mdi-delete</v-icon>
         </template>
       </v-data-table>
     </v-card>
@@ -19,12 +20,13 @@
 </template>
 
 <script>
+import { oTodosinDB } from '@/datasources/firebase';
 import { mapState } from "vuex";
 import _ from "lodash";
 
 export default {
   computed: _.extend(
-    mapState(["todoList"])
+    //mapState(["todoList"])
   ),
   data: () => ({
     selected: [],
@@ -34,16 +36,24 @@ export default {
       { text: 'Content', value: 'content' },
       { text: '', value: 'action' },
     ],
+    todoList: [],
   }),
+  firebase: {
+    todoList: oTodosinDB
+  },
   methods : {
     checkTodoItem(e) {
-      let id = e.id;
-      this.$store.commit("checkTodoItem", { id });
+      let id = e['.key'];
+      //console.log(e.status)
+      oTodosinDB.child(id).update({
+        status: !e.status
+      })
+      //this.$store.commit("checkTodoItem", { id });
     },
     removeItem(e, id) {
-      console.log("rmv")
+      // this.$store.commit('removeTodoItem', { id });
       e.stopPropagation(); //이벤트 전파 방지
-      this.$store.commit('removeTodoItem', { id });
+      oTodosinDB.child(id).remove()
     },
     row_classes(item) {
       if(item.status){

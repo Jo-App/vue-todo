@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { oTodosinDB } from '@/datasources/firebase';
+
 export default {
   data: () => ({
     inputTitle: "",
@@ -33,10 +35,19 @@ export default {
   }),
   methods: {
     addItem() {
+      // if (this.inputTitle !== "" && this.inputContent !== "") {
+      //   this.$store.commit("addTodoItems", {
+      //     inputTitle: this.inputTitle,
+      //     inputContent: this.inputContent,
+      //   });
+      //   this.clearInput();
+      // }
+
       if (this.inputTitle !== "" && this.inputContent !== "") {
-        this.$store.commit("addTodoItems", {
-          inputTitle: this.inputTitle,
-          inputContent: this.inputContent,
+        oTodosinDB.push({
+          title: this.inputTitle,
+          content: this.inputContent,
+          status: true
         });
         this.clearInput();
       }

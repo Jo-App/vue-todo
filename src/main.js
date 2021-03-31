@@ -7,6 +7,9 @@ import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
+import {rtdbPlugin} from 'vuefire'
+Vue.use(rtdbPlugin);
+
 Vue.config.productionTip = false
 
 new Vue({
