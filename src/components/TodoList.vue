@@ -15,6 +15,8 @@
         </template>
       </v-data-table>
     </v-card>
+    <v-btn @click="test()">초기화</v-btn>
+    {{getCode}}
   </v-container>
 </template>
 
@@ -24,7 +26,7 @@ import _ from "lodash";
 
 export default {
   computed: _.extend(
-    mapState(["todoList"])
+    mapState(["todoList", "getCode"])
   ),
   data: () => ({
     selected: [],
@@ -49,6 +51,9 @@ export default {
       if(item.status){
         return "checkRow";
       }
+    },
+    test(){
+      this.$store.commit('reset');
     }
   },
 };
